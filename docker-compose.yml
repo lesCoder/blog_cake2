@@ -1,0 +1,34 @@
+version: '3'
+
+services:
+  db:
+    image: mariadb
+    environment:
+      MYSQL_ROOT_PASSWORD: my_secret_pw_shh
+      MYSQL_DATABASE: test_db
+      MYSQL_USER: devuser
+      MYSQL_PASSWORD: devpass
+    ports:
+      - "3306:3306"
+    volumes:
+        - ./cakephp/mysql:/var/lib/mysql
+    networks:
+        - web-db-net
+  web:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+
+    image: php:7.2.2-apache
+    container_name: php_web
+    depends_on:
+      - db
+    volumes:
+      - ./cakephp:/var/www/html/
+    ports:
+      - "8100:80"
+      - "443:443"
+    stdin_open: true
+    tty: true
+networks:
+  web-db-net:
