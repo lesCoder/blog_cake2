@@ -9,4 +9,5 @@ O primeiro irá criar as configurações do ambiente, já o segundo as do banco 
 Na migration já existe um usuário cadastrado com perfil de administrador, as credenciais do mesmo são:
 
 user: master
+
 pass: master
